@@ -13,8 +13,11 @@ const getPlaylist = async () => {
   }
 };
 
+const SPOTIFY_CLIENT_ID = process.env.REACT_APP_SPOTIFY;
+
 function App() {
   useEffect(() => {
+    console.log(SPOTIFY_CLIENT_ID);
     getPlaylist();
   }, []);
 
