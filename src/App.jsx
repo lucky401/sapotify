@@ -1,5 +1,3 @@
-import React from 'react';
-
 import PlaylistContainer from './components/PlaylistContainer';
 
 function App() {

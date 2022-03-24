@@ -1,5 +1,3 @@
-import React from 'react';
-
 function Track({ image, songName, albumName, artists }) {
   return (
     <div className="playlist-item">

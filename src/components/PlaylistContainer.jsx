@@ -1,5 +1,3 @@
-import React from 'react';
-
 import PlaylistItem from './PlaylistItem';
 
 import { SPOTIFY_PLAYLIST_MOCK_DATA } from '../constants';
