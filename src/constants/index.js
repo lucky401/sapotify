@@ -1,4 +1,4 @@
-const SPOTIFY_PLAYLIST_MOCK_DATA = {
+export const SPOTIFY_PLAYLIST_MOCK_DATA = {
   album: {
     album_type: 'album',
     artists: [
@@ -74,5 +74,3 @@ const SPOTIFY_PLAYLIST_MOCK_DATA = {
   type: 'track',
   uri: 'spotify:track:3z8h0TU7ReDPLIbEnYhWZb',
 };
-
-export default SPOTIFY_PLAYLIST_MOCK_DATA;

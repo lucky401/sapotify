@@ -46,7 +46,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "lint": "npx prettier --write src/* && npx eslint src/* --quiet --fix",
+    "lint": "npx prettier --write src/* && npx eslint src/**/**/** --quiet --fix",
     "eject": "react-scripts eject"
   },
   "browserslist": {
