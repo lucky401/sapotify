@@ -23,7 +23,7 @@
     "url": "git+https://github.com/lucky401/sapotify.git"
   },
   "engines": {
-    "node": ">=14.0.0",
+    "node": ">=14",
     "npm": ">=8"
   },
   "husky": {
