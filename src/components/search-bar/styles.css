@@ -1,0 +1,11 @@
+.search-bar input[type='text'] {
+  width: 70%;
+}
+
+.search-bar input[type='submit'] {
+  width: 30%;
+}
+
+.search-bar {
+  margin: 20px 0;
+}
