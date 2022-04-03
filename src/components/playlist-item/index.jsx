@@ -1,5 +1,5 @@
-function Track({ track, onSelectTrack }) {
-  const { album, name: songName, artists, isSelected } = track;
+function Track({ isSelected, track, onSelectTrack }) {
+  const { album, name: songName, artists, uri } = track;
   return (
     <div className="playlist-item">
       <img
@@ -16,7 +16,7 @@ function Track({ track, onSelectTrack }) {
       </div>
       <div className="playlist-actions">
         <button
-          onClick={() => onSelectTrack(track)}
+          onClick={() => onSelectTrack(uri)}
           type="button"
           className="playlist-action"
         >

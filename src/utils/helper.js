@@ -1,3 +1,8 @@
+/**
+ * Generate a random string of a given length
+ * @param length - The length of the string to be generated.
+ * @returns A random string of length `length`
+ */
 export const generateRandomString = (length) => {
   let text = '';
   const possible =

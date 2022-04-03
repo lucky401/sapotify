@@ -4,18 +4,14 @@ import { getStorage } from './storage';
  * Check if the user is authenticated by checking if there is a token in local storage.
  * @returns A boolean value.
  */
-export const isAuth = () => {
-  const token = getStorage('TOKEN');
-  if (token) return true;
-  return false;
-};
+export const isAuth = !!getStorage('TOKEN');
 
 /**
  * It takes the hash from the URL and extracts the access token, token type, and expiration time
  * @returns The access token and token type
  */
 export const interceptSpotifyAuthRedirect = () => {
-  if (isAuth())
+  if (isAuth)
     return {
       token: getStorage('TOKEN'),
       type: getStorage('TOKEN_TYPE'),
@@ -46,6 +42,7 @@ export const interceptSpotifyAuthRedirect = () => {
       return initial;
     }, {});
   window.location.hash = '';
+  window.location.reload();
 
   if (hash.state !== STATE_KEY) throw new Error('State mismatch');
 

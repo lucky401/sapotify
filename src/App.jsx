@@ -1,80 +1,41 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-import PlaylistContainer from './components/PlaylistContainer';
-import SearchBar from './components/search-bar';
+import Login from './components/login';
+import Header from './components/header';
+import PlaylistCreator from './components/playlist-creator';
 
-import authService from './api/services/auth';
-import trackService from './api/services/track';
+import profileService from './api/services/profile';
 
 import { isAuth } from './utils/OAuth';
 
 function App() {
-  const [tracks, setTracks] = useState([]);
-  const [error, setError] = useState(null);
+  const [profile, setProfile] = useState(null);
 
-  const handleAuthSpotify = () => {
-    authService.login();
-  };
-
-  const handleUnAuthSpotify = () => {
-    authService.logout();
-  };
-
-  const geTracks = async (query) => {
-    if (!query) return;
+  const getCurrentUserProfile = async () => {
     try {
-      const {
-        data: {
-          tracks: { items },
-        },
-      } = await trackService.search(query);
-
-      setTracks(items);
-      // eslint-disable-next-line no-shadow
+      const { data } = await profileService.getCurrentUserProfile();
+      setProfile(data);
     } catch (error) {
-      let errorMessage = 'Something went wrong';
-      if (error.response && error.response.status === 401) {
-        errorMessage = 'Please login to Spotify';
-      } else {
-        errorMessage = error.response.data.error.message;
-      }
-      setError(errorMessage);
+      // eslint-disable-next-line no-console
+      console.log(error);
     }
   };
 
-  const handleSearch = async (event) => {
-    event.preventDefault();
-    const query = event.target[0].value;
-    await geTracks(query);
-  };
+  useEffect(() => {
+    if (isAuth) {
+      getCurrentUserProfile();
+    }
+  }, []);
 
   return (
     <div className="app">
-      <div className="header d-flex justify-between">
-        <h1>Spotify Playlist</h1>
-        {!isAuth() && (
-          <button
-            onClick={handleAuthSpotify}
-            className="btn btn-spotify"
-            type="button"
-          >
-            Auth to Spotify
-          </button>
-        )}
-        {isAuth() && (
-          <button
-            onClick={handleUnAuthSpotify}
-            className="btn btn-danger"
-            type="button"
-          >
-            Disconnect from Spotify
-          </button>
-        )}
-      </div>
-      <SearchBar onSearchChange={handleSearch} />
-      {!error && tracks.length > 0 && <PlaylistContainer tracks={tracks} />}
-      {!error && tracks.length === 0 && <p>No tracks found</p>}
-      {error && <p>{error}</p>}
+      {!isAuth && <Login />}
+      {isAuth && (
+        <>
+          <Header username={profile?.display_name} />
+          <PlaylistCreator />
+        </>
+      )}
     </div>
   );
 }

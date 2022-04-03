@@ -8,7 +8,7 @@ import './index.css';
 
 import App from './App';
 
-const isAuthenticated = () => {
+(() => {
   try {
     const { token, type } = interceptSpotifyAuthRedirect();
     storage.setStorage('TOKEN', token);
@@ -16,9 +16,7 @@ const isAuthenticated = () => {
   } catch (error) {
     storage.clearStorage();
   }
-};
-
-isAuthenticated();
+})();
 
 ReactDOM.render(
   <React.StrictMode>
