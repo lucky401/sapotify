@@ -33,7 +33,7 @@ function App() {
       {isAuth && (
         <>
           <Header username={profile?.display_name} />
-          <PlaylistCreator />
+          <PlaylistCreator userId={profile?.id} />
         </>
       )}
     </div>

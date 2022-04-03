@@ -113,3 +113,10 @@ body {
 .text-center {
   text-align: center;
 }
+.text-error {
+  color: #dc3545;
+}
+.my-2 {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}

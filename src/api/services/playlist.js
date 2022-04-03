@@ -14,8 +14,7 @@ export default {
       collaborative: false,
       public: false,
     };
-
-    return resource.post(`/user/${userID}/playlist`, data);
+    return resource.post(`/users/${userID}/playlists`, data);
   },
 
   /**
@@ -24,8 +23,8 @@ export default {
    * @param {array} tracks
    * @returns {Promise}
    */
-  addTracksToPlaylist(playlistID, uris) {
+  addTracks(playlistID, uris) {
     const data = { uris };
-    return resource.post(`/playlist/${playlistID}/tracks`, data);
+    return resource.post(`/playlists/${playlistID}/tracks`, data);
   },
 };

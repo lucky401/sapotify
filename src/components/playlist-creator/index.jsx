@@ -8,12 +8,13 @@ import playlistService from '../../api/services/playlist';
 
 import './index.css';
 
-function PlaylistCreator() {
+function PlaylistCreator({ userId }) {
+  const [playlistDescription, setPlaylistDescription] = useState('');
   const [selectedTracks, setSelectedTracks] = useState([]);
+  const [playlistTitle, setPlaylistTitle] = useState('');
+  const [errorForm, setErrorForm] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [error, setError] = useState(null);
-  const [playlistTitle, setPlaylistTitle] = useState('');
-  const [playlistDescription, setPlaylistDescription] = useState('');
 
   const geTracks = async (query) => {
     try {
@@ -31,6 +32,7 @@ function PlaylistCreator() {
 
   const handleSearch = async (event) => {
     event.preventDefault();
+    setError(null);
     const query = event.target[0].value;
     await geTracks(query);
   };
@@ -49,19 +51,43 @@ function PlaylistCreator() {
     }
   };
 
+  const resetPlaylistCreator = () => {
+    setSelectedTracks([]);
+    setPlaylistTitle('');
+    setPlaylistDescription('');
+  };
+
   const handleCreatePlaylist = async (event) => {
     event.preventDefault();
+
+    if (!userId) return;
+
+    setErrorForm(null);
+
+    if (selectedTracks.length < 1) {
+      setErrorForm('Please select at least one track');
+      return;
+    }
+
+    if (!playlistTitle || !playlistDescription) {
+      setErrorForm('Please fill in the required fields');
+      return;
+    }
+
+    const payload = {
+      name: playlistTitle,
+      description: playlistDescription,
+    };
+
     try {
       const {
         data: { id },
-      } = await playlistService.create(playlistTitle, playlistDescription);
+      } = await playlistService.create(userId, payload);
       await playlistService.addTracks(id, selectedTracks);
-      setSelectedTracks([]);
-      setPlaylistTitle('');
-      setPlaylistDescription('');
+      resetPlaylistCreator();
     } catch (e) {
       const errorMessage = e.response.data.error.message;
-      setError(errorMessage);
+      setErrorForm(errorMessage);
     }
   };
 
@@ -73,6 +99,7 @@ function PlaylistCreator() {
       >
         <label htmlFor="title">Title</label>
         <input
+          required
           id="title"
           type="text"
           name="title"
@@ -81,12 +108,14 @@ function PlaylistCreator() {
         />
         <label htmlFor="description">Description</label>
         <input
+          required
           type="text"
           name="description"
           id="description"
           value={playlistDescription}
           onInput={(event) => setPlaylistDescription(event.target.value)}
         />
+        {errorForm && <p className="text-error my-2">{errorForm}</p>}
         <input type="submit" value="Create Playlist" />
       </form>
       <span>Select song that you want to include</span>
