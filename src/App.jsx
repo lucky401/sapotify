@@ -1,42 +1,54 @@
-import { useState, useEffect } from 'react';
+import { useEffect, Suspense } from 'react';
+import shallow from 'zustand/shallow';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { setToken } from './store/tokenSlice';
+
+import { useUser } from './store/user';
+
+import { useLogin, useProfile } from './hooks/auth';
 
 import Login from './components/login';
 import Header from './components/header';
-import PlaylistCreator from './components/playlist-creator';
 
-import profileService from './api/services/profile';
-
-import { isAuth } from './utils/OAuth';
+// Secret Page
+import PlaylistCreator from './pages/secret/playlist-creator';
 
 function App() {
-  const [profile, setProfile] = useState(null);
+  const token = useSelector((state) => state.token.value);
+  // eslint-disable-next-line no-console
+  console.log('token', token);
+  const dispatch = useDispatch();
 
-  const getCurrentUserProfile = async () => {
-    try {
-      const { data } = await profileService.getCurrentUserProfile();
-      setProfile(data);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.log(error);
-    }
-  };
+  const [, interceptLoginRedirect] = useLogin();
+  const [getProfile] = useProfile();
+  const [logged, getUser] = useUser(
+    (state) => [state.logged, state.getUser],
+    shallow
+  );
 
   useEffect(() => {
-    if (isAuth) {
-      getCurrentUserProfile();
+    const user = getUser();
+    if (!user.token) {
+      interceptLoginRedirect();
+    } else {
+      dispatch(setToken(user.token));
+      getProfile();
     }
   }, []);
 
   return (
-    <div className="app">
-      {!isAuth && <Login />}
-      {isAuth && (
-        <>
-          <Header username={profile?.display_name} />
-          <PlaylistCreator userId={profile?.id} />
-        </>
-      )}
-    </div>
+    <Suspense fallback={<div>Loading</div>}>
+      <div className="app">
+        {!logged && <Login />}
+        {logged && (
+          <>
+            <Header />
+            <PlaylistCreator />
+          </>
+        )}
+      </div>
+    </Suspense>
   );
 }
 

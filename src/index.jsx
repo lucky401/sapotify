@@ -1,26 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import { interceptSpotifyAuthRedirect } from './utils/OAuth';
-import * as storage from './utils/storage';
-
 import './index.css';
 
+import { Provider } from 'react-redux';
 import App from './App';
 
-(() => {
-  try {
-    const { token, type } = interceptSpotifyAuthRedirect();
-    storage.setStorage('TOKEN', token);
-    storage.setStorage('TOKEN_TYPE', type);
-  } catch (error) {
-    storage.clearStorage();
-  }
-})();
+import store from './store';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
