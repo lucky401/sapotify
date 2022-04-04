@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import shallow from 'zustand/shallow';
 
 import PlaylistContainer from '../../../components/playlist-container';
 import SearchBar from '../../../components/search-bar';
@@ -6,15 +7,18 @@ import SearchBar from '../../../components/search-bar';
 import trackService from '../../../api/services/track';
 import playlistService from '../../../api/services/playlist';
 
+import { useUser } from '../../../store/user';
+
 import './index.css';
 
-function PlaylistCreator({ userId }) {
+function PlaylistCreator() {
   const [playlistDescription, setPlaylistDescription] = useState('');
   const [selectedTracks, setSelectedTracks] = useState([]);
   const [playlistTitle, setPlaylistTitle] = useState('');
   const [errorForm, setErrorForm] = useState(null);
   const [tracks, setTracks] = useState([]);
   const [error, setError] = useState(null);
+  const [user] = useUser((state) => [state.user], shallow);
 
   const geTracks = async (query) => {
     try {
@@ -60,7 +64,7 @@ function PlaylistCreator({ userId }) {
   const handleCreatePlaylist = async (event) => {
     event.preventDefault();
 
-    if (!userId) return;
+    if (!user?.id) return;
 
     setErrorForm(null);
 
@@ -82,7 +86,7 @@ function PlaylistCreator({ userId }) {
     try {
       const {
         data: { id },
-      } = await playlistService.create(userId, payload);
+      } = await playlistService.create(user.id, payload);
       await playlistService.addTracks(id, selectedTracks);
       resetPlaylistCreator();
     } catch (e) {
