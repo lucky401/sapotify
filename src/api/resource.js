@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { getStorage } from '../utils/storage';
+
+import { useTokenPersistance } from '../persistance/user';
 
 const API_BASE_URL = process.env.REACT_APP_SPOTIFY_API_BASE_URL;
 
@@ -14,12 +15,12 @@ function createResource() {
 
   instance.interceptors.request.use(
     (config) => {
-      const token = getStorage('TOKEN');
-      const type = getStorage('TOKEN_TYPE');
+      const [_, getToken] = useTokenPersistance();
+      const token = getToken();
 
       if (token) {
         // eslint-disable-next-line no-param-reassign
-        config.headers.Authorization = `${type} ${token}`;
+        config.headers.Authorization = `Bearer ${token}`;
       }
 
       return config;

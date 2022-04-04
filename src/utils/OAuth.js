@@ -1,5 +1,7 @@
 import { getStorage } from './storage';
 
+import { STATE_SPOTIFY_AUTH_KEY } from '../constants';
+
 /**
  * Check if the user is authenticated by checking if there is a token in local storage.
  * @returns A boolean value.
@@ -11,13 +13,8 @@ export const isAuth = !!getStorage('TOKEN');
  * @returns The access token and token type
  */
 export const interceptSpotifyAuthRedirect = () => {
-  if (isAuth)
-    return {
-      token: getStorage('TOKEN'),
-      type: getStorage('TOKEN_TYPE'),
-    };
+  const STATE_KEY = getStorage(STATE_SPOTIFY_AUTH_KEY);
 
-  const STATE_KEY = getStorage('STATE_KEY');
   if (!STATE_KEY) throw new Error('No state key found');
 
   if (!window.location.hash) {
@@ -26,7 +23,7 @@ export const interceptSpotifyAuthRedirect = () => {
     if (errorMessage) {
       throw new Error(errorMessage);
     } else {
-      throw new Error('Not authenticated');
+      throw new Error('Something went wrong');
     }
   }
 
@@ -42,7 +39,6 @@ export const interceptSpotifyAuthRedirect = () => {
       return initial;
     }, {});
   window.location.hash = '';
-  window.location.reload();
 
   if (hash.state !== STATE_KEY) throw new Error('State mismatch');
 

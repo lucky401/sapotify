@@ -1,18 +1,15 @@
-import authService from '../../api/services/auth';
+import { useLogin } from '../../hooks/auth';
 
 import './index.css';
 
 function Login() {
-  const handleAuthSpotify = () => {
-    authService.login();
-  };
-
+  const [login] = useLogin();
   return (
     <div className="auth-container">
       <h1 className="text-center">Spotify Playlist Creator</h1>
       <button
         type="button"
-        onClick={handleAuthSpotify}
+        onClick={login}
         className="btn btn-spotify btn-login-spotify mx-auto"
       >
         Login to Spotify

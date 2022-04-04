@@ -1,18 +1,17 @@
-import authService from '../../api/services/auth';
+import shallow from 'zustand/shallow';
 
-function Header({ username }) {
-  const handleUnAuthSpotify = () => {
-    authService.logout();
-  };
+import { useUser } from '../../store/user';
+
+import { useLogout } from '../../hooks/auth';
+
+function Header() {
+  const [logout, status, errorMessage] = useLogout();
+  const [user] = useUser((state) => [state.user], shallow);
 
   return (
     <div className="header d-flex justify-between">
-      <h1 className="text-center">Welcome {username?.split(' ')[0]}!</h1>
-      <button
-        onClick={handleUnAuthSpotify}
-        className="btn btn-danger"
-        type="button"
-      >
+      <h1 className="text-center">Welcome {user?.name?.split(' ')[0]}!</h1>
+      <button onClick={logout} className="btn btn-danger" type="button">
         Disconnect from Spotify
       </button>
     </div>
