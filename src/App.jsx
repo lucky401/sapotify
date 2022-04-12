@@ -31,7 +31,7 @@ function SecretPage({ children }) {
     if (!user.token) {
       history.push('/');
     }
-  }, []);
+  }, [getUser, history]);
 
   return children;
 }
@@ -57,7 +57,11 @@ function App() {
     } else {
       dispatch(setToken(user.token));
       getProfile();
-      history.push('/create-playlist');
+      // get url path from window
+      const path = window.location.pathname;
+      if (path === '/') {
+        history.push('/create-playlists');
+      }
     }
   }, []);
 
@@ -67,11 +71,11 @@ function App() {
         {logged && <Header />}
         <Router>
           <Switch>
-            <Route path="/">
+            <Route exact path="/">
               <Login />
             </Route>
             <SecretPage>
-              <Route path="/create-playlist">
+              <Route exact path="/create-playlist">
                 <PlaylistCreator />
               </Route>
             </SecretPage>

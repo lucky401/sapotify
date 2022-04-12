@@ -1,5 +1,7 @@
 import PlaylistItem from '../playlist-item';
 
+import './index.css';
+
 function PlaylistContainer({ tracks, onSelectTrack, selectedTracks }) {
   function renderPlaylistItems() {
     return tracks.map((item) => {

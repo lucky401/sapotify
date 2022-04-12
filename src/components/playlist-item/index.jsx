@@ -1,7 +1,7 @@
 function Track({ isSelected, track, onSelectTrack }) {
   const { album, name: songName, artists, uri } = track;
   return (
-    <div className="playlist-item">
+    <div className="playlist-item-flex">
       <img
         className="playlist-image"
         src={album.images[0]?.url}
