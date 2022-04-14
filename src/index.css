@@ -17,9 +17,7 @@ body {
 .app {
   max-width: 600px;
   margin: 0 auto;
-  padding: 20px;
   background-color: #fff;
-  min-height: 100vh;
   position: relative;
 }
 /* Form */
