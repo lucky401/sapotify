@@ -7,12 +7,15 @@
 
 # testing
 /coverage
+/cypress/videos
+/cypress/screenshots
 
 # production
 /build
 
 # misc
 .DS_Store
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -22,7 +25,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-.env
+# Allow people to make ignored files anywhere
+*.ignored.*
+ignored/
+.eslintcache
 
 1A3F919CD5B7725108B03C349630A1C82B03_4A84987F2428442A9EC84563BB2BC063
 models.json

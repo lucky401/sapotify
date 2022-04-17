@@ -1,7 +1,7 @@
 /* eslint-disable prefer-destructuring */
 // eslint-disable-next-line no-var
 var spawnSync = require('child_process').spawnSync;
-const { username } = require('os').userInfo();
+const {username} = require('os').userInfo();
 
 if (username === 'lucky404') {
   const result = spawnSync('npm run lint', {

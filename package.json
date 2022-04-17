@@ -1,8 +1,18 @@
 {
   "name": "sapotify",
   "description": "A Spotify client",
+  "keywords": [
+    "spotify",
+    "music",
+    "api",
+    "client"
+  ],
   "version": "0.1.0",
   "private": false,
+  "engines": {
+    "node": "14 || 15 || 16",
+    "npm": ">=6"
+  },
   "author": {
     "name": "Lucky Dewa Satria",
     "email": "luckydewa123@gmail.com",
@@ -12,19 +22,9 @@
     "email": "luckydewa123@gmail.com",
     "url": "https://github.com/lucky401/sapotify/issues"
   },
-  "keywords": [
-    "spotify",
-    "music",
-    "api",
-    "client"
-  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/lucky401/sapotify.git"
-  },
-  "engines": {
-    "node": ">=14",
-    "npm": ">=8"
   },
   "husky": {
     "hooks": {
@@ -32,54 +32,73 @@
       "pre-push": "node ./scripts/pre-push"
     }
   },
+  "browserslist": {
+    "development": [
+      "last 2 chrome versions",
+      "last 2 firefox versions",
+      "last 2 edge versions"
+    ],
+    "production": [
+      ">1%",
+      "last 4 versions",
+      "Firefox ESR",
+      "not ie < 11"
+    ]
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build --profile",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "npx prettier --write -c ./src && npx eslint './src' --quiet --fix",
+    "build:dev": "REACT_APP_STAGE=development react-scripts build --profile",
+    "security:audit": "npm audit",
+    "packages:upgrade": "npm upgrade --latest",
+    "setup": "node setup"
+  },
   "dependencies": {
+    "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.8",
+    "@emotion/core": "^11.0.0",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@reduxjs/toolkit": "^1.8.1",
     "@testing-library/jest-dom": "^5.16.2",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.23",
+    "@types/react": "^17.0.44",
+    "@types/react-dom": "^18.0.0",
     "axios": "^0.26.1",
+    "formik": "^2.2.9",
     "framer-motion": "^6.2.10",
-    "husky": "^4.3.8",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-icons": "^4.3.1",
+    "react-query": "^3.34.20",
     "react-redux": "^7.2.8",
-    "react-router-dom": "^5.3.0",
+    "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.0",
+    "typescript": "^4.6.3",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4",
     "zustand": "^3.7.1"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "lint": "npx prettier --write src/* && npx eslint src/**/**/**/** --quiet --fix",
-    "eject": "react-scripts eject"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
   "devDependencies": {
-    "eslint": "^8.11.0",
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0",
+    "eslint": "^8.13.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-import": "^2.25.4",
+    "eslint-import-resolver-typescript": "^2.7.1",
+    "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.29.4",
-    "eslint-plugin-react-hooks": "^4.3.0",
-    "prettier": "2.6.0"
+    "eslint-plugin-react-hooks": "^4.4.0",
+    "husky": "4.3.8",
+    "prettier": "2.6.2"
   }
 }

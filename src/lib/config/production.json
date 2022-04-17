@@ -1,0 +1,12 @@
+{
+  "env": {
+    "environment": "production",
+    "hostname": "https://sapotify.vercel.app",
+    "apiBaseUrl": "https://api.spotify.com/v1",
+    "redirectURI": "https://sapotify.vercel.app/callback",
+    "spotifyScope": "playlist-modify-private",
+    "meta": {
+      "title": "Sapotify"
+    }
+  }
+}

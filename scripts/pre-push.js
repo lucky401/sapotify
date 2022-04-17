@@ -2,9 +2,9 @@
 /* eslint-disable prefer-destructuring */
 // eslint-disable-next-line no-var
 try {
-  const { username } = require('os').userInfo();
+  const {username} = require('os').userInfo();
   const {
-    repository: { url: repoUrl },
+    repository: {url: repoUrl},
   } = require('../package.json');
 
   const remote = process.env.GIT_PARAMS.split(' ')[1];

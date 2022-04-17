@@ -6,10 +6,11 @@
   "extends": [
     "plugin:react/recommended",
     "airbnb",
-    "prettier/prettier",
-    "plugin:prettier/recommended",
-    "plugin:react/jsx-runtime"
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+    "prettier/prettier"
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -17,14 +18,40 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks"],
+  "plugins": ["react", "@typescript-eslint", "react-hooks", "prettier"],
   "rules": {
+    "react/jsx-props-no-spreading": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/require-default-props": "off",
+    // note you must disable the base rule as it can report incorrect errors
+    // https://github.com/typescript-eslint/typescript-eslint/blob/main/packages/eslint-plugin/docs/rules/no-use-before-define.md#how-to-use
+    "no-use-before-define": "off",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "react/jsx-filename-extension": ["warn", { "extensions": [".tsx"] }],
+    "no-shadow": "off",
+    "@typescript-eslint/no-shadow": ["error"],
+    // Note: By enabling this rule, it will generate some ESLint errors that will be fixed by adding explicitly the return type of the functions on your code.
+    "@typescript-eslint/explicit-function-return-type": [
+      "error",
+      { "allowExpressions": true }
+    ],
     "react-hooks/rules-of-hooks": "error",
     "react-hooks/exhaustive-deps": "warn",
     "import/prefer-default-export": "off",
+    // Because we use TypeScript we can disable react prop-types rule
     "react/prop-types": "off",
-    "jsx-a11y/label-has-associated-control": "off",
-    "no-unused-vars": "warn",
-    "no-shadow": "off"
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never"
+      }
+    ]
+  },
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
   }
 }

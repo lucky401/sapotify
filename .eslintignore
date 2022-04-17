@@ -1,2 +1,6 @@
-*.css
-*.svg
+node_modules
+build
+coverage
+public
+.docz
+scripts/workshop-setup.js
