@@ -4,7 +4,7 @@ import shallow from 'zustand/shallow';
 
 import {useAuth} from 'lib/auth-provider/context';
 
-import Layout from 'layouts/general';
+import Layout from 'layouts/login';
 
 const Login = lazy(() => import('./views/login'));
 

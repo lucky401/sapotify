@@ -9,7 +9,7 @@ import {useAsync} from '../../client/hooks';
 type useProfile = [() => Promise<void>, string, string];
 
 export function useProfile(): useProfile {
-  const {execute, status, value, errorMessage} = useAsync<any, undefined>(
+  const {execute, status, errorMessage} = useAsync<any, undefined>(
     authServices.me,
   );
 
@@ -17,16 +17,16 @@ export function useProfile(): useProfile {
 
   async function getProfile(): Promise<void> {
     try {
-      await execute();
+      const {data} = await execute();
       setUser({
-        id: value.id,
-        display_name: value.display_name,
-        country: value.country,
-        email: value.email,
-        avatar: value.images[0]?.url || '',
-        products: value.products,
-        type: value.type,
-        uri: value.uri,
+        id: data.id,
+        display_name: data.display_name,
+        country: data.country,
+        email: data.email,
+        avatar: data.images[0]?.url || '',
+        products: data.products,
+        type: data.type,
+        uri: data.uri,
       });
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -44,6 +44,7 @@ export function useLogout(): useLogout {
 
   function logout(): void {
     clearSession();
+    window.location.href = '/login';
   }
 
   return [logout];

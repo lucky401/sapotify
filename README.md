@@ -1,70 +1,130 @@
-# Getting Started with Create React App
+![Demo Application](https://snipboard.io/LJx2cH.jpg "Demo Application")
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Sapotify 🎶
 
-## Available Scripts
+Making a playlist is as simple as a single tap of your thumb.
 
-In the project directory, you can run:
+- Seamless integration with your Spotify account
+- Cloud-enabled and mobile-ready
+- Search songs, select, and create your awesome playlist
 
-### `npm start`
+## Live Demo
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+You can see the running example here [the deployment of the app on Vercel](https://sapotify.vercel.app).
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `npm test`
+- Using Implicit Grant Flow auth
+- Search your favorite tracks from any genre
+  - Look at the song title, album name, artists, and durations
+- Select or deselect your favorite track to add to the new playlist
+- Write your playlist title (min 10 characters) and descriptions
+- Create private playlist with your selected tracs, title and descriptions
+- All playlists you make will be kept private.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Additional Features
 
-### `npm run build`
+- Dark and ligt mode
+- You can see your picture profile
+- You can log out once you've finished creating your playlist.
+- Error boundary and succes handling
+- Using modular architecture
+- Improved User experience, thanks to [Chakra UI]
+- Improved security using hash and provides protection against attacks such as cross-site request forgery.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Tech
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Sapotify uses a number of open source projects to work properly:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [React] - A JavaScript library for building user interfaces
+- [developer.spotify.com] - Build experiences for millions of music lovers with playback, personalization, and much, much more.
+- [Axios] -  a simple promise based HTTP client for the browser and node.js.
+- [Chakra UI] -  a simple, modular and accessible component library
 
-### `npm run eject`
+## System Requirements
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- [git][git] v2.13 or greater
+- [NodeJS][node] `14 || 15 || 16`
+- [npm][npm] v6 or greater
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+All of these must be available in your `PATH`. To verify things are set up properly, you can run this:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+```shell
+git --version
+node --version
+npm --version
+```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+If you have trouble with any of these, learn more about the PATH environment variable and how to fix it here for [windows][win-path] or [mac/linux][mac-path].
 
-## Learn More
+## Setup
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+After you've made sure to have the correct things (and versions) installed, you should be able to just run a few commands to get set up:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```
+git clone https://github.com/lucky401/sapotify.git
+cd sapotify
+npm run setup
+```
 
-### Code Splitting
+This may take a few minutes. If you get any errors, please read through them and see if you can find out what the problem is. If you can't work it out on your own then please [file an issue][issue] and provide _all_ the output from the commands you ran (even if it's a lot).
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+If you can't get the setup script to work, then just make sure you have the
+right versions of the requirements listed above, and run the following commands:
 
-### Analyzing the Bundle Size
+```
+npm install
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+If you are still unable to fix issues and you know how to use Docker 🐳 you can
+setup the project with the following command:
 
-### Making a Progressive Web App
+```shell
+docker-compose up --detach --build
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Running the app
 
-### Advanced Configuration
+**Set up the proper environment variables**
+```shell
+cp .env.example .env
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```env
+NODE_ENV=development
+REACT_APP_STAGE=development
+REACT_APP_SPOTIFY_CLIENT_ID=
+```
 
-### Deployment
+> To fill `REACT_APP_SPOTIFY_CLIENT_ID` you can follow tutorial from [Spotify Developer doc] to get your `CLIENT ID`
+> **Important** you can set `Redirect URIs`, `Base API URL`, and other config in `src/lib/config`
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+To get the app up and running (and really see if it worked), run:
 
-### `npm run build` fails to minify
+```shell
+npm run start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Verify the deployment by navigating to your server address in
+your preferred browser.
+
+```shell
+localhost:3000
+```
+
+You can also open [the deployment of the app on Vercel](https://sapotify.vercel.app).
+
+[//]: # (These are reference links used in the body of this note and get stripped out when the markdown processor does its job. There is no need to format nicely because it shouldn't be seen. Thanks SO - http://stackoverflow.com/questions/4823468/store-comments-in-markdown-syntax)
+
+   [React]: <https://reactjs.org>
+   [Chakra UI]: <https://chakra-ui.com>
+   [React Table]: <https://react-table.tanstack.com>
+   [Axios]: <https://axios-http.com>
+   [npm]: <https://www.npmjs.com/>
+   [node]: <https://nodejs.org>
+   [git]: <https://git-scm.com/>
+   [developer.spotify.com]: <https://developer.spotify.com/>
+   [win-path]: <https://www.howtogeek.com/118594/how-to-edit-your-system-path-for-easy-command-line-access/>
+   [mac-path]: <http://stackoverflow.com/a/24322978/971592>
+   [Spotify developer doc]: <https://developer.spotify.com/documentation/general/guides/authorization/app-settings/>
+   [issue]: <https://github.com/lucky401/sapotify/issues/new>

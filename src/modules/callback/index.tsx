@@ -1,6 +1,7 @@
 import {useEffect} from 'react';
 
 import {useLogin} from 'lib/auth-provider/context/hooks';
+import {FullPageSpinner} from 'common/components/full-page-spinner';
 
 function Modules(): JSX.Element {
   const [, loginWithSpotify] = useLogin();
@@ -9,7 +10,7 @@ function Modules(): JSX.Element {
     loginWithSpotify();
   }, [loginWithSpotify]);
 
-  return <h1>login</h1>;
+  return <FullPageSpinner />;
 }
 
 export default Modules;

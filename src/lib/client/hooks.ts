@@ -5,7 +5,7 @@ export type Status = 'idle' | 'fetching' | 'resolved' | 'rejected';
 export const useAsync = <T, P>(
   asyncFunction: (arg?: P) => Promise<T>,
 ): {
-  execute: (arg?: P) => Promise<void>;
+  execute: (arg?: P) => Promise<any>;
   status: Status;
   value: T | null;
   errorMessage: string;
@@ -37,10 +37,12 @@ export const useAsync = <T, P>(
         .then((response: any) => {
           setValue(response);
           setStatus('resolved');
+          return response;
         })
         .catch((err: any) => {
           setError(err);
           setStatus('rejected');
+          Promise.reject(err);
         });
     },
     [asyncFunction],

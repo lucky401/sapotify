@@ -30,3 +30,10 @@ export const generateRandomString = (length: number): string => {
   }
   return text;
 };
+
+export const formatMilliseconds = (miliseconds: number): string => {
+  // format to proper time format
+  const minutes = Math.floor(miliseconds / 60000);
+  const seconds = parseInt(((miliseconds % 60000) / 1000).toFixed(0), 10);
+  return `${minutes}:${seconds * 1 < 10 ? '0' : ''}${seconds}`;
+};

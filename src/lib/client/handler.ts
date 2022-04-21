@@ -1,4 +1,6 @@
 /* eslint-disable no-console */
+import * as storage from 'lib/storage';
+
 const errorPrefix = '[ERROR] ';
 
 const errorHandler = {
@@ -11,6 +13,8 @@ const errorHandler = {
   },
 
   notAuthorize() {
+    storage.clearStorage();
+    window.location.href = '/login';
     console.error(errorPrefix, 'Not Authorize');
   },
 };
@@ -30,7 +34,7 @@ export default (error: {response?: {status?: number}}): Promise<void> => {
     case 400:
       errorHandler.badRequest();
       break;
-    case 403:
+    case 401:
       errorHandler.notAuthorize();
       break;
     default:

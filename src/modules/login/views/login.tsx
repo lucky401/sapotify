@@ -38,7 +38,7 @@ function Login(): JSX.Element {
             mt={8}
             mx="auto"
             display="block"
-            colorScheme="teal"
+            colorScheme="green"
             onClick={login}
           >
             Login with Spotify

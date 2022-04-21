@@ -1,4 +1,5 @@
 import * as storage from 'lib/storage';
+import {base64Encode, base64Decode} from 'lib/security';
 
 import {TOKEN_STORAGE_KEY, USER_STORAGE_KEY, User} from '../constants';
 
@@ -23,11 +24,11 @@ export function userPersistance(): userPersistance {
 
 export function tokenPersistance(): tokenPersistance {
   function set(token: string): void {
-    return storage.setStorage(TOKEN_STORAGE_KEY, token);
+    return storage.setStorage(TOKEN_STORAGE_KEY, base64Encode(token));
   }
 
   function get(): string {
-    return storage.getStorage(TOKEN_STORAGE_KEY);
+    return base64Decode(storage.getStorage(TOKEN_STORAGE_KEY));
   }
 
   function remove(): void {
