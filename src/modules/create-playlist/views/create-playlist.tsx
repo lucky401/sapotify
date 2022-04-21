@@ -63,43 +63,43 @@ function CreatePlaylist(): JSX.Element {
       return;
     }
 
-    if (selectedTracks.length > 0) {
-      if (!playlistTitle) {
-        setErrorForm((prevValue: any) => {
-          return {
-            ...prevValue,
-            title: 'Please enter a title',
-          };
-        });
-      }
+    if (!playlistTitle) {
+      setErrorForm((prevValue: any) => {
+        return {
+          ...prevValue,
+          title: 'Please enter a title',
+        };
+      });
+      return;
+    }
 
-      if (playlistTitle && playlistTitle.length < 10) {
-        setErrorForm((prevValue: any) => {
-          return {
-            ...prevValue,
-            title: 'Title must be at least 10 characters',
-          };
-        });
-      }
+    if (playlistTitle && playlistTitle.length < 10) {
+      setErrorForm((prevValue: any) => {
+        return {
+          ...prevValue,
+          title: 'Title must be at least 10 characters',
+        };
+      });
+      return;
+    }
 
-      if (!playlistDescription) {
-        setErrorForm((prevValue: any) => {
-          return {
-            ...prevValue,
-            description: 'Please enter a description',
-          };
-        });
-      }
+    if (!playlistDescription) {
+      setErrorForm((prevValue: any) => {
+        return {
+          ...prevValue,
+          description: 'Please enter a description',
+        };
+      });
+      return;
+    }
 
-      if (playlistDescription && playlistDescription.length < 10) {
-        setErrorForm((prevValue: any) => {
-          return {
-            ...prevValue,
-            description: 'Description must be at least 10 characters',
-          };
-        });
-      }
-
+    if (playlistDescription && playlistDescription.length < 10) {
+      setErrorForm((prevValue: any) => {
+        return {
+          ...prevValue,
+          description: 'Description must be at least 10 characters',
+        };
+      });
       return;
     }
 
