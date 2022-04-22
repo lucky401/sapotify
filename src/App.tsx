@@ -1,11 +1,18 @@
 import {Suspense, lazy, useEffect} from 'react';
 import shallow from 'zustand/shallow';
+import {useSelector, useDispatch} from 'react-redux';
 import {useLocation, useNavigate, Routes, Route} from 'react-router-dom';
 
-import {useProfile} from 'lib/auth-provider/context/hooks';
-import {FullPageSpinner} from './common/components/full-page-spinner';
+import {RootState} from 'store';
 
-import {useAuth} from './lib/auth-provider/context';
+import {useProfile} from 'lib/auth-provider/context/hooks';
+import {setToken as setTokenRedux} from 'lib/auth-provider/store/tokenSlice';
+import {tokenPersistance} from 'lib/auth-provider/persistance';
+import {useAuth} from 'lib/auth-provider/context';
+
+import {FullPageSpinner} from 'common/components/full-page-spinner';
+
+const [, getTokenPersistance] = tokenPersistance();
 
 const LoginModule = lazy(() => import('./modules/login'));
 const CallbackLoginModule = lazy(() => import('./modules/callback'));
@@ -13,14 +20,13 @@ const CreatePlaylistModule = lazy(() => import('./modules/create-playlist'));
 
 function SecretPage({children}: {children: JSX.Element}): JSX.Element {
   const navigate = useNavigate();
-  const [getAuth] = useAuth(state => [state.getAuth], shallow);
+  const token = useSelector((state: RootState) => state.token.value);
 
   useEffect(() => {
-    const currentUser = getAuth();
-    if (!currentUser.token) {
+    if (!token) {
       navigate('/login');
     }
-  }, [getAuth, navigate]);
+  }, [token, navigate]);
 
   return children;
 }
@@ -30,6 +36,9 @@ function App(): JSX.Element {
   const navigate = useNavigate();
   const [getAuth] = useAuth(state => [state.getAuth], shallow);
   const [getProfile] = useProfile();
+
+  // use redux to store token
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (location.pathname === '/') {
@@ -43,6 +52,8 @@ function App(): JSX.Element {
     };
     const currentUser = getAuth();
     if (currentUser.token) {
+      const userToken = getTokenPersistance();
+      dispatch(setTokenRedux(userToken));
       getUserProfile();
     }
   }, []);

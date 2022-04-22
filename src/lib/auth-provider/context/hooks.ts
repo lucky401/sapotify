@@ -1,4 +1,7 @@
 import shallow from 'zustand/shallow';
+import {useDispatch} from 'react-redux';
+
+import {setToken as setTokenRedux} from '../store/tokenSlice';
 
 import {useAuth} from './index';
 
@@ -41,9 +44,12 @@ type useLogout = [() => void];
 
 export function useLogout(): useLogout {
   const [clearSession] = useAuth(state => [state.clearSession], shallow);
+  // to use redux token management
+  const dispatch = useDispatch();
 
   function logout(): void {
     clearSession();
+    dispatch(setTokenRedux(''));
     window.location.href = '/login';
   }
 
@@ -54,6 +60,8 @@ type useLogin = [() => void, () => void];
 
 export function useLogin(): useLogin {
   const [setToken] = useAuth(state => [state.setToken], shallow);
+  // to use redux token management
+  const dispatch = useDispatch();
 
   function login(): void {
     authServices.login();
@@ -63,6 +71,9 @@ export function useLogin(): useLogin {
     try {
       const {token} = authServices.interceptSpotifyAuthRedirect();
       setToken(token);
+
+      // set token to redux
+      dispatch(setTokenRedux(token));
     } catch (error) {
       // eslint-disable-next-line no-console
       console.error(error);
