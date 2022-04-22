@@ -18,7 +18,7 @@ const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
 
 const {endpoint} = AUTH_PROVIDER_CONFIG;
 
-async function me(): Promise<AxiosResponse<any, any>> {
+async function me(): Promise<AxiosResponse<unknown, unknown>> {
   return client.get(endpoint.me);
 }
 
@@ -47,7 +47,7 @@ const interceptSpotifyAuthRedirect = (): {token: string; type: string} => {
   const hash = window.location.hash
     .substring(1)
     .split('&')
-    .reduce((initial: any, item) => {
+    .reduce((initial: Record<string, string>, item) => {
       if (item) {
         const parts = item.split('=');
         // eslint-disable-next-line no-param-reassign

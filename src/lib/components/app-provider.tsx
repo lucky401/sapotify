@@ -11,7 +11,7 @@ const queryClient = new QueryClient({
     queries: {
       useErrorBoundary: true,
       refetchOnWindowFocus: false,
-      retry(failureCount, error: any) {
+      retry(failureCount, error: Record<string, unknown>) {
         if (error.status === 404) return false;
         if (failureCount < 2) return true;
         return false;

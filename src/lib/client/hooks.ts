@@ -5,6 +5,7 @@ export type Status = 'idle' | 'fetching' | 'resolved' | 'rejected';
 export const useAsync = <T, P>(
   asyncFunction: (arg?: P) => Promise<T>,
 ): {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   execute: (arg?: P) => Promise<any>;
   status: Status;
   value: T | null;
@@ -12,6 +13,7 @@ export const useAsync = <T, P>(
 } => {
   const [status, setStatus] = useState<Status>('idle');
   const [value, setValue] = useState<T | null>(null);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [error, setError] = useState<any | null>(null);
 
   const errorMessage = useMemo(() => {
@@ -34,12 +36,12 @@ export const useAsync = <T, P>(
       setValue(null);
       setError(null);
       return asyncFunction(arg)
-        .then((response: any) => {
+        .then(response => {
           setValue(response);
           setStatus('resolved');
           return response;
         })
-        .catch((err: any) => {
+        .catch(err => {
           setError(err);
           setStatus('rejected');
           Promise.reject(err);

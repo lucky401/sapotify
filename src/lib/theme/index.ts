@@ -1,5 +1,5 @@
 const theme = {
-  initialColorMode: 'light',
+  initialColorMode: 'system',
   useSystemColorMode: true,
   fonts: {
     heading: 'Inter, sans-serif',

@@ -12,7 +12,7 @@ import {useAsync} from '../../client/hooks';
 type useProfile = [() => Promise<void>, string, string];
 
 export function useProfile(): useProfile {
-  const {execute, status, errorMessage} = useAsync<any, undefined>(
+  const {execute, status, errorMessage} = useAsync<unknown, undefined>(
     authServices.me,
   );
 
