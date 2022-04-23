@@ -200,6 +200,7 @@ function CreatePlaylist(): JSX.Element {
           <FormLabel htmlFor="title">Title</FormLabel>
           <Input
             id="title"
+            aria-label="title-input"
             type="text"
             value={playlistTitle}
             onInput={handleTitleChange}
@@ -211,6 +212,7 @@ function CreatePlaylist(): JSX.Element {
           <FormLabel htmlFor="description">Description</FormLabel>
           <Textarea
             id="description"
+            aria-label="description-input"
             value={playlistDescription}
             onChange={handleDescriptionChange}
             isDisabled={isCreatingPlaylist}

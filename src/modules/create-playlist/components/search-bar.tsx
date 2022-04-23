@@ -30,6 +30,7 @@ function Track({
           onChange={onHandleSearchChange}
           value={value}
           type="search"
+          aria-label="search-input"
           placeholder="Search"
           isDisabled={isLoading}
           onKeyDown={(event: React.KeyboardEvent<HTMLInputElement>): void => {

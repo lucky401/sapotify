@@ -27,6 +27,7 @@ function Login(): JSX.Element {
             Login
           </Text>
           <Text
+            as="h1"
             fontSize="xl"
             textAlign="center"
             lineHeight={7}
@@ -40,6 +41,7 @@ function Login(): JSX.Element {
             display="block"
             colorScheme="green"
             onClick={login}
+            role="button"
           >
             Login with Spotify
           </Button>

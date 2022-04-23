@@ -20,6 +20,7 @@ Spinner.defaultProps = {
 export function FullPageSpinner(): JSX.Element {
   return (
     <Box
+      data-testId="full-page-spinner"
       fontSize="4em"
       height="100vh"
       display="flex"
