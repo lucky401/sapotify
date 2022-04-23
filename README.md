@@ -21,6 +21,8 @@ You can see the running example here [the deployment of the app on Vercel](https
 - Write your playlist title (min 10 characters) and descriptions
 - Create private playlist with your selected tracs, title and descriptions
 - All playlists you make will be kept private.
+- Maintainable Tests using react-testing-library
+- Using zustand and redux for state management
 
 ## Additional Features
 
@@ -97,6 +99,8 @@ REACT_APP_SPOTIFY_CLIENT_ID=
 ```
 
 > To fill `REACT_APP_SPOTIFY_CLIENT_ID` you can follow tutorial from [Spotify Developer doc] to get your `CLIENT ID`
+
+
 > **Important** you can set `Redirect URIs`, `Base API URL`, and other config in `src/lib/config`
 
 To get the app up and running (and really see if it worked), run:
